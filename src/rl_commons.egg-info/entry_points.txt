@@ -1,2 +1,0 @@
-[console_scripts]
-generate-settings = settingsgen.generate_settings:main
