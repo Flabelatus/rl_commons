@@ -1,9 +1,9 @@
 import logging
 import ast
 import os
-from logger_configs import logger
-from yaml_to_dataclass import generate_dataclass_file
-import settings_types as st
+from settingsgen.logger_configs import logger
+from settingsgen.yaml_to_dataclass import generate_dataclass_file
+import settingsgen.settings_types as st
 
 logger = logging.getLogger('rl_commons.settingsgen')
 
