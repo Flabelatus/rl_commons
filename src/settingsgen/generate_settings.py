@@ -10,13 +10,12 @@ from settingsgen.logger_configs import logger
 from dataclasses import dataclass
 from typing import List, Optional, Any
 
+logger = logging.getLogger('rl_commons.settingsgen')
+
 
 @dataclass
 class RootSchema:
     mode: str
-
-
-logger = logging.getLogger('rl_commons.settingsgen')
 
 
 def is_dataclass_type(type_hint):
@@ -60,19 +59,18 @@ from dacite import from_dict
 
 
 class Configurator:
-    def __init__(self, path):
+    def __init__(self, path: str):
         self.yaml = YAML()
-        self.path = path
+        self.path = os.path.abspath(path)
 
     @property
     def general_settings(self):
-        path = self.path
         try:
-            open(self.path)
+            open(os.path.join(self.path, "settings.yaml"))
         except FileNotFoundError:
             pass
         
-        with open(os.path.join(path, "settings.yaml"), "r") as settings_yml:
+        with open(os.path.join(self.path, "settings.yaml"), "r") as settings_yml:
             settings_data = self.yaml.load(settings_yml)
         settings = from_dict(data_class=RootSchema, data=settings_data)
 
